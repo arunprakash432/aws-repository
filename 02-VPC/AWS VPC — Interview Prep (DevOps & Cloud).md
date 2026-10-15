@@ -6,7 +6,7 @@ Oct 15, 2026 · @varun
 
 A VPC (Virtual Private Cloud) is your own logically isolated network inside AWS. You control the IP range, subnets, routing, gateways and security. Every EC2, RDS, EKS node, Lambda-in-VPC and load balancer lives inside one.
 
-![VPC architecture](images/vpc-architecture.png)
+![VPC architecture](images/vpc-architecture.svg)
 
 Each AZ repeats the same three tiers; each private app subnet uses the NAT Gateway in its own AZ, and the DB tier has no internet route at all. Draw this on the whiteboard when asked to design a VPC.
 
