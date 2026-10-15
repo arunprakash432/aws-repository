@@ -1,0 +1,69 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 760 544" width="760" height="544" font-family="Helvetica, Arial, sans-serif" font-size="13">
+  <defs>
+    <marker id="a" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+      <path d="M0 0L10 5L0 10z" fill="#6b7280"/>
+    </marker>
+  </defs>
+  <rect width="760" height="544" fill="#ffffff"/>
+  <text x="24" y="26" font-size="15" font-weight="600" fill="#111827">Only the public subnets route to the internet; app and DB stay private</text>
+
+  <rect x="300" y="40" width="160" height="30" rx="8" fill="none" stroke="#6b7280" stroke-width="1.25"/>
+  <text x="380" y="60" text-anchor="middle" fill="#111827">Internet</text>
+  <rect x="280" y="92" width="200" height="32" rx="8" fill="none" stroke="#6b7280" stroke-width="1.25"/>
+  <text x="380" y="113" text-anchor="middle" font-weight="600" fill="#111827">Internet Gateway</text>
+
+  <rect x="24" y="132" width="712" height="388" rx="8" fill="none" stroke="#6b7280" stroke-width="1.25" stroke-dasharray="6 4"/>
+  <text x="40" y="154" font-weight="600" fill="#111827">VPC · 10.0.0.0/16</text>
+
+  <rect x="48" y="164" width="324" height="340" rx="8" fill="#f3f4f6" stroke="#d1d5db"/>
+  <text x="210" y="186" text-anchor="middle" font-size="11.5" font-weight="600" fill="#4b5563">Availability Zone A</text>
+  <rect x="388" y="164" width="324" height="340" rx="8" fill="#f3f4f6" stroke="#d1d5db"/>
+  <text x="550" y="186" text-anchor="middle" font-size="11.5" font-weight="600" fill="#4b5563">Availability Zone B</text>
+
+  <g fill="none" stroke="#6b7280" stroke-width="1.25">
+    <path d="M380 70V92" marker-start="url(#a)" marker-end="url(#a)"/>
+    <path d="M380 124V174H340V200" marker-end="url(#a)"/>
+    <path d="M380 174H420V200" marker-end="url(#a)"/>
+    <path d="M210 304V280" marker-end="url(#a)"/>
+    <path d="M550 304V280" marker-end="url(#a)"/>
+    <path d="M210 384V408" marker-end="url(#a)"/>
+    <path d="M550 384V408" marker-end="url(#a)"/>
+  </g>
+
+  <!-- AZ A -->
+  <rect x="64" y="200" width="292" height="80" rx="8" fill="#dbeafe" stroke="#2563eb" stroke-width="2"/>
+  <text x="76" y="224" font-weight="600" fill="#111827">Public subnet · 10.0.1.0/24</text>
+  <text x="76" y="244" font-size="11.5" fill="#111827">ALB · NAT Gateway + Elastic IP</text>
+  <text x="76" y="262" font-size="11.5" fill="#4b5563">Route 0.0.0.0/0 → IGW</text>
+
+  <rect x="64" y="304" width="292" height="80" rx="8" fill="#ffffff" stroke="#6b7280" stroke-width="1.25"/>
+  <text x="76" y="328" font-weight="600" fill="#111827">Private app subnet · 10.0.11.0/24</text>
+  <text x="76" y="348" font-size="11.5" fill="#111827">EC2 / EKS worker nodes</text>
+  <text x="76" y="366" font-size="11.5" fill="#4b5563">Route 0.0.0.0/0 → NAT in AZ A</text>
+
+  <rect x="64" y="408" width="292" height="80" rx="8" fill="#ffffff" stroke="#6b7280" stroke-width="1.25"/>
+  <text x="76" y="432" font-weight="600" fill="#111827">Private DB subnet · 10.0.21.0/24</text>
+  <text x="76" y="452" font-size="11.5" fill="#111827">RDS primary</text>
+  <text x="76" y="470" font-size="11.5" fill="#4b5563">Local route only, no internet</text>
+
+  <!-- AZ B -->
+  <rect x="404" y="200" width="292" height="80" rx="8" fill="#dbeafe" stroke="#2563eb" stroke-width="2"/>
+  <text x="416" y="224" font-weight="600" fill="#111827">Public subnet · 10.0.2.0/24</text>
+  <text x="416" y="244" font-size="11.5" fill="#111827">ALB · NAT Gateway + Elastic IP</text>
+  <text x="416" y="262" font-size="11.5" fill="#4b5563">Route 0.0.0.0/0 → IGW</text>
+
+  <rect x="404" y="304" width="292" height="80" rx="8" fill="#ffffff" stroke="#6b7280" stroke-width="1.25"/>
+  <text x="416" y="328" font-weight="600" fill="#111827">Private app subnet · 10.0.12.0/24</text>
+  <text x="416" y="348" font-size="11.5" fill="#111827">EC2 / EKS worker nodes</text>
+  <text x="416" y="366" font-size="11.5" fill="#4b5563">Route 0.0.0.0/0 → NAT in AZ B</text>
+
+  <rect x="404" y="408" width="292" height="80" rx="8" fill="#ffffff" stroke="#6b7280" stroke-width="1.25"/>
+  <text x="416" y="432" font-weight="600" fill="#111827">Private DB subnet · 10.0.22.0/24</text>
+  <text x="416" y="452" font-size="11.5" fill="#111827">RDS standby (Multi-AZ)</text>
+  <text x="416" y="470" font-size="11.5" fill="#4b5563">Local route only, no internet</text>
+
+  <text x="218" y="296" font-size="11.5" fill="#4b5563">outbound via NAT</text>
+  <text x="558" y="296" font-size="11.5" fill="#4b5563">outbound via NAT</text>
+  <text x="218" y="400" font-size="11.5" fill="#4b5563">DB port from app SG</text>
+  <text x="558" y="400" font-size="11.5" fill="#4b5563">DB port from app SG</text>
+</svg>
